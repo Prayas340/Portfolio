@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0A0A0A;
+  --color-bg-darker: #050505;
+  --color-bg-card: #111111;
+  --color-bg-card-border: #1F291E;
+  --color-bg-surface: #151515;
+
+  --color-neon: #39FF6A;
+  --color-neon-lime: #00FF41;
+  --color-neon-glow: rgba(57, 255, 106, 0.3);
+  --color-neon-dim: #22A343;
+
+  --color-text-main: #EDEDED;
+  --color-text-muted: #8E8E93;
+  --color-text-dim: #555555;
+
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-sans: 'DM Sans', sans-serif;
+}
+
+:root {
+  --bg-color: #0A0A0A;
+  --neon-green: #39FF6A;
+  --neon-glow: #00FF41;
+  --text-color: #EDEDED;
+  --text-muted: #8E8E93;
+  --border-color: rgba(57, 255, 106, 0.15);
+}
+
+html, body {
+  background-color: #0A0A0A;
+  color: #EDEDED;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: clip;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f291e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #39FF6A;
+}
+
+/* Cyber HUD Chamfer */
+.hud-corner {
+  clip-path: polygon(
+    0% 6px,
+    6px 0%,
+    100% 0%,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    0% 100%
+  );
+}
+
+.hud-corner-lg {
+  clip-path: polygon(
+    0% 12px,
+    12px 0%,
+    100% 0%,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0% 100%
+  );
+}
+
+.hud-panel {
+  clip-path: polygon(
+    1rem 0,
+    calc(100% - 1rem) 0,
+    100% 1rem,
+    100% calc(100% - 1rem),
+    calc(100% - 1rem) 100%,
+    1rem 100%,
+    0 calc(100% - 1rem),
+    0 1rem
+  );
+}
+
+/* Background Cyber Grid Lines */
+.cyber-grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(57, 255, 106, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(57, 255, 106, 0.035) 1px, transparent 1px);
+}
+
+/* Scanlines overlay */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.3) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* RGB Glitch Slices for Headings and Preloader */
+.glitch-slice {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-slice::before,
+.glitch-slice::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-slice::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff0055;
+  clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%);
+  animation: glitch-anim-1 2.2s infinite linear alternate-reverse;
+}
+
+.glitch-slice::after {
+  left: -2px;
+  text-shadow: 2px 0 #00ffff;
+  clip-path: polygon(0 60%, 100% 60%, 100% 85%, 0 85%);
+  animation: glitch-anim-2 2.6s infinite linear alternate-reverse;
+}
+
+/* Photo Chromatic Aberration & Slice Glitch */
+.photo-glitch-slice-red {
+  mix-blend-mode: screen;
+  filter: drop-shadow(4px 0px 0px rgba(255, 0, 85, 0.75));
+  animation: photo-glitch-anim-1 3.5s infinite steps(2, start);
+}
+
+.photo-glitch-slice-cyan {
+  mix-blend-mode: screen;
+  filter: drop-shadow(-4px 0px 0px rgba(0, 255, 255, 0.75));
+  animation: photo-glitch-anim-2 3.8s infinite steps(2, start);
+}
+
+@keyframes photo-glitch-anim-1 {
+  0%, 88%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  89% {
+    opacity: 0.8;
+    transform: translate(-4px, 2px);
+    clip-path: polygon(0 15%, 100% 15%, 100% 32%, 0 32%);
+  }
+  91% {
+    opacity: 0.9;
+    transform: translate(5px, -2px);
+    clip-path: polygon(0 45%, 100% 45%, 100% 62%, 0 62%);
+  }
+  93% {
+    opacity: 0.85;
+    transform: translate(-3px, 1px);
+    clip-path: polygon(0 75%, 100% 75%, 100% 88%, 0 88%);
+  }
+  95% {
+    opacity: 0;
+  }
+}
+
+@keyframes photo-glitch-anim-2 {
+  0%, 86%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  87% {
+    opacity: 0.75;
+    transform: translate(4px, -2px);
+    clip-path: polygon(0 25%, 100% 25%, 100% 40%, 0 40%);
+  }
+  90% {
+    opacity: 0.9;
+    transform: translate(-5px, 2px);
+    clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%);
+  }
+  92% {
+    opacity: 0.8;
+    transform: translate(3px, -1px);
+    clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%);
+  }
+  94% {
+    opacity: 0;
+  }
+}
+
+/* Fullscreen Ambient Cyber Scanline Sweep */
+.cyber-scanline-beam {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to bottom, transparent, rgba(57, 255, 106, 0.25), transparent);
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanline-sweep 8s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scanline-sweep {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(105vh);
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%);
+    transform: translate(-2px, -1px);
+  }
+  20% {
+    clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%);
+    transform: translate(2px, 1px);
+  }
+  40% {
+    clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%);
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 35%, 0 35%);
+    transform: translate(3px, -1px);
+  }
+  80% {
+    clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%);
+    transform: translate(-2px, 1px);
+  }
+  100% {
+    clip-path: polygon(0 50%, 100% 50%, 100% 65%, 0 65%);
+    transform: translate(1px, -2px);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: polygon(0 65%, 100% 65%, 100% 80%, 0 80%);
+    transform: translate(2px, 1px);
+  }
+  25% {
+    clip-path: polygon(0 10%, 100% 10%, 100% 25%, 0 25%);
+    transform: translate(-2px, -1px);
+  }
+  50% {
+    clip-path: polygon(0 45%, 100% 45%, 100% 70%, 0 70%);
+    transform: translate(3px, 1px);
+  }
+  75% {
+    clip-path: polygon(0 85%, 100% 85%, 100% 98%, 0 98%);
+    transform: translate(-1px, -2px);
+  }
+  100% {
+    clip-path: polygon(0 30%, 100% 30%, 100% 45%, 0 45%);
+    transform: translate(1px, 2px);
+  }
+}
+
+/* Diagonal line project placeholder pattern */
+.diagonal-lines {
+  background-color: #121212;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(57, 255, 106, 0.05),
+    rgba(57, 255, 106, 0.05) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+
+/* Left-to-Right Running Marquee Animation */
+@keyframes marquee-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-ltr {
+  animation: marquee-ltr 28s linear infinite;
+}
+
+.animate-marquee-ltr:hover {
+  animation-play-state: paused;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .glitch-slice::before,
+  .glitch-slice::after {
+    display: none !important;
+  }
+}
