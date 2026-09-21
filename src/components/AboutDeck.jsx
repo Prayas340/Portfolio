@@ -1,7 +1,143 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { playCyberHover, playCyberClick } from '../utils/audio';
 import GlitchText from './GlitchText';
+
+// Green Glassmorphic Pillar Card with Cursor Tracking Distortion
+function PillarCard({ pillar, idx }) {
+  const cardRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+  // 3D Magnetic Tilt & Distortion Tracking
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 18, stiffness: 260 };
+  const rotateX = useSpring(useTransform(y, [-80, 80], [8, -8]), springConfig);
+  const rotateY = useSpring(useTransform(x, [-120, 120], [-10, 10]), springConfig);
+
+  // Micro-lens distortion offsets
+  const distortX = useSpring(useTransform(x, [-120, 120], [-5, 5]), springConfig);
+  const distortY = useSpring(useTransform(y, [-80, 80], [-5, 5]), springConfig);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const clientX = e.clientX - rect.left;
+    const clientY = e.clientY - rect.top;
+    setCursorPos({ x: clientX, y: clientY });
+    x.set(clientX - rect.width / 2);
+    y.set(clientY - rect.height / 2);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    playCyberHover();
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        perspective: 900,
+        transformStyle: 'preserve-3d',
+        rotateX,
+        rotateY,
+      }}
+      whileHover={{ scale: 1.025 }}
+      transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+      className="group relative p-3 sm:p-4 rounded-xl green-glass-panel overflow-hidden cursor-default transition-all duration-300"
+    >
+      {/* 1. Dynamic Cursor Spotlight (Neon Green Caustic Glass Glow) */}
+      {isHovered && (
+        <div
+          className="pointer-events-none absolute -inset-px rounded-xl transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(220px circle at ${cursorPos.x}px ${cursorPos.y}px, rgba(57, 255, 106, 0.28), rgba(0, 255, 100, 0.08) 45%, transparent 80%)`,
+          }}
+        />
+      )}
+
+      {/* 2. Interactive Neon Border Glow tracking cursor */}
+      {isHovered && (
+        <div
+          className="pointer-events-none absolute -inset-[1px] rounded-xl transition-opacity duration-300 z-10"
+          style={{
+            background: `radial-gradient(160px circle at ${cursorPos.x}px ${cursorPos.y}px, rgba(57, 255, 106, 0.85), transparent 70%)`,
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
+            padding: '1px',
+          }}
+        />
+      )}
+
+      {/* 3. Glass Specular Diagonal Reflection Sheen */}
+      <div className="absolute inset-0 glass-specular-shine opacity-60 pointer-events-none" />
+
+      {/* 4. Mouse-reactive Cyber Distortion Grid Wave */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen"
+        style={{
+          x: distortX,
+          y: distortY,
+          backgroundImage: 'radial-gradient(rgba(57, 255, 106, 0.4) 1px, transparent 1px)',
+          backgroundSize: '14px 14px',
+        }}
+      />
+
+      {/* 5. Optical Distortion Lens Slice reacting to cursor */}
+      {isHovered && (
+        <div
+          className="pointer-events-none absolute inset-0 opacity-35 cyber-lens-active"
+          style={{
+            background: `radial-gradient(130px circle at ${cursorPos.x}px ${cursorPos.y}px, rgba(0, 255, 255, 0.18), rgba(255, 0, 85, 0.14) 55%, transparent 75%)`,
+            mixBlendMode: 'screen',
+          }}
+        />
+      )}
+
+      {/* 6. Card Content with 3D Depth Layering */}
+      <div className="relative z-20 flex flex-col h-full justify-between" style={{ transform: 'translateZ(20px)' }}>
+        <div className="flex items-center gap-2 sm:justify-between sm:mb-2 font-mono text-[10px] sm:text-xs">
+          <GlitchText
+            text={pillar.num}
+            triggerOnView={true}
+            delay={650 + idx * 100}
+            className="text-[#39FF6A] font-bold drop-shadow-[0_0_8px_rgba(57,255,106,0.6)]"
+          />
+          <GlitchText
+            as="h3"
+            text={pillar.title}
+            triggerOnView={true}
+            delay={700 + idx * 100}
+            className="font-heading text-xs sm:text-sm font-bold text-[#EDEDED] group-hover:text-white tracking-wide uppercase group-hover:drop-shadow-[0_0_12px_rgba(57,255,106,0.4)] transition-all"
+          />
+        </div>
+        <p className="mt-1.5 font-sans text-[11px] sm:text-xs text-[#9DA3AF] group-hover:text-[#D1D5DB] leading-snug hidden xs:block sm:block transition-colors">
+          <GlitchText text={pillar.desc} enableScramble={true} />
+        </p>
+
+        {/* Subtle Bottom Status Indicator */}
+        <div className="mt-3 flex items-center justify-between font-mono text-[8px] text-[#39FF6A]/40 group-hover:text-[#39FF6A]/80 transition-colors">
+          <span>// PROTOCOL: ACTIVE</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#39FF6A] opacity-60 group-hover:opacity-100 transition-opacity" />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function AboutDeck() {
   const pillars = [
@@ -77,33 +213,10 @@ export default function AboutDeck() {
             <GlitchText text="visceral, cinematic human tools" triggerOnView={true} delay={600} glitchColor="#39FF6A" className="text-[#39FF6A] font-medium" />.
           </p>
 
-          {/* 3 Technical Architecture Pillars - Optimized for mobile fit */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 mt-3 sm:mt-6">
+          {/* 3 Technical Architecture Pillars - Green Glassmorphic with Mouse Cursor Distortion Tracking */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 mt-3 sm:mt-6">
             {pillars.map((pillar, idx) => (
-              <div
-                key={pillar.num}
-                onMouseEnter={playCyberHover}
-                className="group p-2.5 sm:p-4 rounded-md border border-white/10 bg-[#111412] hover:border-[#39FF6A]/60 hover:bg-[#151c16] transition-all duration-200 cursor-default"
-              >
-                <div className="flex items-center gap-2 sm:justify-between sm:mb-2 font-mono text-[10px] sm:text-xs">
-                  <GlitchText
-                    text={pillar.num}
-                    triggerOnView={true}
-                    delay={650 + idx * 100}
-                    className="text-[#39FF6A] font-bold"
-                  />
-                  <GlitchText
-                    as="h3"
-                    text={pillar.title}
-                    triggerOnView={true}
-                    delay={700 + idx * 100}
-                    className="font-heading text-xs sm:text-sm font-bold text-[#EDEDED] group-hover:text-white tracking-wide uppercase"
-                  />
-                </div>
-                <p className="mt-1 font-sans text-[11px] sm:text-xs text-[#8E8E93] group-hover:text-[#B0B4C0] leading-snug hidden xs:block sm:block transition-colors">
-                  <GlitchText text={pillar.desc} enableScramble={true} />
-                </p>
-              </div>
+              <PillarCard key={pillar.num} pillar={pillar} idx={idx} />
             ))}
           </div>
         </div>
@@ -136,4 +249,5 @@ export default function AboutDeck() {
     </div>
   );
 }
+
 

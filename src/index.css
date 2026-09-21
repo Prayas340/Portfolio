@@ -310,6 +310,63 @@ html, body {
   animation-play-state: paused;
 }
 
+/* Green Glassmorphic Cyber Surface */
+.green-glass-panel {
+  background: linear-gradient(135deg, rgba(14, 38, 22, 0.55) 0%, rgba(8, 22, 14, 0.45) 100%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(57, 255, 106, 0.22);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px 0 rgba(57, 255, 106, 0.25),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.green-glass-panel:hover {
+  border-color: rgba(57, 255, 106, 0.6);
+  box-shadow: 
+    0 15px 35px -5px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(57, 255, 106, 0.2),
+    inset 0 1px 2px 0 rgba(57, 255, 106, 0.45),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Glass Specular Sheen Reflection */
+.glass-specular-shine {
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    rgba(57, 255, 106, 0.1) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Cyber Distortion Lens Wave reacting on cursor hover */
+@keyframes cyber-lens-distortion {
+  0% {
+    transform: scale(1) skew(0deg);
+  }
+  25% {
+    transform: scale(1.01) skew(0.6deg, -0.6deg);
+  }
+  50% {
+    transform: scale(1.005) skew(-0.8deg, 0.5deg);
+  }
+  75% {
+    transform: scale(1.012) skew(0.4deg, 0.6deg);
+  }
+  100% {
+    transform: scale(1) skew(0deg);
+  }
+}
+
+.cyber-lens-active {
+  animation: cyber-lens-distortion 0.4s ease-out;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
