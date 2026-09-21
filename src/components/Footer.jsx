@@ -178,8 +178,8 @@ export default function Footer() {
               <span className="absolute w-2 h-2 rounded-full bg-black" />
             </div>
 
-            {/* Main Bold Condensed Headline matching reference photo */}
-            <h2 className="font-heading text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-black leading-[0.92] mb-8">
+            {/* Main Headline in Neoradical font */}
+            <h2 className="font-title text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tight text-black leading-[0.92] mb-8 select-none">
               LET'S CREATE<br />
               GOOD STUFF<br />
               TOGETHER
