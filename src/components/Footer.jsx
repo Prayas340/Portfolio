@@ -85,7 +85,7 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
         return;
       }
 
-      const height = Math.floor(Math.max(110, Math.min(260, width * 0.17)));
+      const height = Math.floor(Math.max(65, Math.min(125, width * 0.085)));
 
       if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
         canvas.width = width * dpr;
@@ -121,9 +121,9 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, width, height);
 
-      const dotStep = Math.max(4.5, Math.min(8.5, width / 175));
+      const dotStep = Math.max(3.8, Math.min(7, width / 185));
       const dotSize = dotStep * 0.72;
-      const radius = 175; // wave ripple radius
+      const radius = 135; // wave ripple radius
       const data = cachedImgData ? cachedImgData.data : null;
 
       for (let y = dotStep / 2; y < height; y += dotStep) {
@@ -145,9 +145,9 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
               const angle = Math.atan2(y - mouse.y, x - mouse.x);
 
               // Traveling ripple wave + fluid sinusoidal undulation matching the screenshot
-              const ripple = Math.sin(dist * 0.075 - time * 3.8) * factor * 22;
-              const harmonicX = Math.sin(y * 0.055 + time * 2.2) * factor * 12;
-              const harmonicY = Math.cos(x * 0.055 + time * 2.2) * factor * 14;
+              const ripple = Math.sin(dist * 0.085 - time * 3.8) * factor * 16;
+              const harmonicX = Math.sin(y * 0.065 + time * 2.2) * factor * 9;
+              const harmonicY = Math.cos(x * 0.065 + time * 2.2) * factor * 10;
 
               finalX = x + Math.cos(angle) * ripple + harmonicX;
               finalY = y + Math.sin(angle) * ripple + harmonicY;
@@ -186,9 +186,9 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       if (mouse.isHovering && mouse.x > 0 && mouse.y > 0) {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
+        ctx.arc(mouse.x, mouse.y, 17, 0, Math.PI * 2);
         ctx.strokeStyle = 'rgba(10, 20, 10, 0.75)';
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 1.5;
         ctx.stroke();
         ctx.restore();
       }
@@ -261,7 +261,7 @@ export default function Footer() {
       label: 'GITHUB',
       handle: '@Prayas340',
       url: 'https://github.com/Prayas340',
-      icon: <GitHubIcon className="w-6 h-6 sm:w-7 sm:h-7" />,
+      icon: <GitHubIcon className="w-5 h-5 sm:w-6 sm:h-6" />,
       badgeBg: 'bg-black text-[#8EE929]',
     },
     {
@@ -269,7 +269,7 @@ export default function Footer() {
       label: 'LEETCODE',
       handle: '@Prayas_dey',
       url: 'https://leetcode.com/u/Prayas_dey/',
-      icon: <LeetCodeIcon className="w-6 h-6 sm:w-7 sm:h-7" />,
+      icon: <LeetCodeIcon className="w-5 h-5 sm:w-6 sm:h-6" />,
       badgeBg: 'bg-black text-[#FFA116]',
     },
     {
@@ -277,7 +277,7 @@ export default function Footer() {
       label: 'LINKEDIN',
       handle: 'prayas-dey',
       url: 'https://www.linkedin.com/in/prayas-dey/',
-      icon: <LinkedInIcon className="w-6 h-6 sm:w-7 sm:h-7" />,
+      icon: <LinkedInIcon className="w-5 h-5 sm:w-6 sm:h-6" />,
       badgeBg: 'bg-black text-[#0A66C2]',
     },
   ];
@@ -321,130 +321,130 @@ export default function Footer() {
         className="fixed bottom-0 left-0 w-full z-0 pointer-events-auto"
       >
         <footer
-          className="relative pt-16 sm:pt-24 pb-8 px-6 sm:px-12 lg:px-20 bg-[#8EE929] text-black overflow-hidden select-none"
+          className="relative pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-5 px-4 sm:px-8 lg:px-12 bg-[#8EE929] text-black overflow-hidden select-none"
         >
           <div className="max-w-7xl mx-auto flex flex-col justify-between">
         
-        {/* Top Section: Heading + Buttons on Left, Social Profiles with Logos on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pb-12 sm:pb-16 border-b border-black/20">
-          
-          {/* Left Column: Stamp, Big Headline in Neoradical font, Action Buttons */}
-          <div className="lg:col-span-6 flex flex-col items-start">
-            
-            {/* Spinning Stamp Emblem */}
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-black/40 flex items-center justify-center mb-6">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
-                className="w-full h-full flex items-center justify-center"
-              >
-                <svg viewBox="0 0 100 100" className="w-full h-full p-1.5 overflow-visible">
-                  <path
-                    id="circlePath"
-                    d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                    fill="none"
-                  />
-                  <text className="font-mono text-[9.5px] uppercase font-bold tracking-[2.5px] fill-black">
-                    <textPath href="#circlePath">
-                      ★ PRAYAS DEY ★ PORTFOLIO 2026
-                    </textPath>
-                  </text>
-                </svg>
-              </motion.div>
-              <span className="absolute w-2 h-2 rounded-full bg-black" />
+            {/* Top Section: Heading + Buttons on Left, Social Profiles with Logos on Right */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-center pb-5 sm:pb-6 border-b border-black/20">
+              
+              {/* Left Column: Stamp, Big Headline in Neoradical font, Action Buttons */}
+              <div className="md:col-span-7 flex flex-col items-start">
+                
+                {/* Spinning Stamp Emblem */}
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-black/40 flex items-center justify-center mb-2.5 sm:mb-3">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
+                    className="w-full h-full flex items-center justify-center"
+                  >
+                    <svg viewBox="0 0 100 100" className="w-full h-full p-1 overflow-visible">
+                      <path
+                        id="circlePath"
+                        d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                        fill="none"
+                      />
+                      <text className="font-mono text-[9.5px] uppercase font-bold tracking-[2.5px] fill-black">
+                        <textPath href="#circlePath">
+                          ★ PRAYAS DEY ★ PORTFOLIO 2026
+                        </textPath>
+                      </text>
+                    </svg>
+                  </motion.div>
+                  <span className="absolute w-1.5 h-1.5 rounded-full bg-black" />
+                </div>
+
+                {/* Main Headline in Neoradical font */}
+                <h2 className="font-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold uppercase tracking-tight text-black leading-[0.9] mb-4 sm:mb-5 select-none">
+                  LET'S CREATE<br />
+                  GOOD STUFF<br />
+                  TOGETHER
+                </h2>
+
+                {/* Action Buttons: Shoot a message + Download CV */}
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                  <a
+                    href="mailto:deyprayas3@gmail.com"
+                    onMouseEnter={playCyberHover}
+                    onClick={playCyberClick}
+                    className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 rounded-md border border-black/35 hover:border-black bg-black/5 hover:bg-black text-black hover:text-[#8EE929] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.02]"
+                  >
+                    SHOOT A MESSAGE
+                  </a>
+
+                  <a
+                    href="/SWE_Resume_Template.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download="Prayas_Dey_Resume.pdf"
+                    onMouseEnter={playCyberHover}
+                    onClick={playCyberClick}
+                    className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3 rounded-md border border-black/35 hover:border-black bg-black/5 hover:bg-black text-black hover:text-[#8EE929] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.02]"
+                  >
+                    <span>DOWNLOAD CV</span>
+                    <ArrowDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Exclusively GitHub, LeetCode & LinkedIn with Brand Logos beside Titles */}
+              <div className="md:col-span-5 md:border-l md:border-black/20 md:pl-6 lg:pl-10 flex flex-col justify-center gap-3 sm:gap-4">
+                {socialProfiles.map((item) => (
+                  <div key={item.label} className="flex flex-col gap-0.5 group">
+                    <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-widest text-black/60 font-bold">
+                      // {item.category}
+                    </span>
+
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onMouseEnter={playCyberHover}
+                      onClick={playCyberClick}
+                      className="inline-flex items-center gap-2.5 text-black hover:opacity-80 transition-all duration-200"
+                    >
+                      {/* Brand Logo beside the title */}
+                      <span className={`shrink-0 p-1.5 sm:p-2 rounded-md ${item.badgeBg} shadow-sm group-hover:scale-110 transition-transform duration-200`}>
+                        {item.icon}
+                      </span>
+
+                      {/* Profile Title */}
+                      <span className="font-heading text-lg sm:text-2xl lg:text-3xl font-black uppercase tracking-tight text-black group-hover:underline decoration-2 underline-offset-4">
+                        {item.label}
+                      </span>
+
+                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-black/60 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+
+                    {/* Handle under the title */}
+                    <span className="font-mono text-[11px] sm:text-xs text-black/70 pl-8 sm:pl-10 font-semibold">
+                      {item.handle}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
             </div>
 
-            {/* Main Headline in Neoradical font */}
-            <h2 className="font-title text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tight text-black leading-[0.92] mb-8 select-none">
-              LET'S CREATE<br />
-              GOOD STUFF<br />
-              TOGETHER
-            </h2>
-
-            {/* Action Buttons: Shoot a message + Download CV */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-              <a
-                href="mailto:deyprayas3@gmail.com"
-                onMouseEnter={playCyberHover}
-                onClick={playCyberClick}
-                className="inline-flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-md border border-black/35 hover:border-black bg-black/5 hover:bg-black text-black hover:text-[#8EE929] font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.02]"
-              >
-                SHOOT A MESSAGE
-              </a>
-
-              <a
-                href="/SWE_Resume_Template.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download="Prayas_Dey_Resume.pdf"
-                onMouseEnter={playCyberHover}
-                onClick={playCyberClick}
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-md border border-black/35 hover:border-black bg-black/5 hover:bg-black text-black hover:text-[#8EE929] font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.02]"
-              >
-                <span>DOWNLOAD CV</span>
-                <ArrowDown className="w-4 h-4 stroke-[2.5]" />
-              </a>
+            {/* Bottom Giant Screen-Spanning Dot-Matrix Banner with Liquid Wave Distortion */}
+            <div className="pt-2 sm:pt-3">
+              <DotMatrixBanner text="PORTFOLIO/PRAYAS" />
             </div>
-          </div>
 
-          {/* Right Column: Exclusively GitHub, LeetCode & LinkedIn with Brand Logos beside Titles */}
-          <div className="lg:col-span-6 lg:border-l lg:border-black/20 lg:pl-10 xl:pl-16 flex flex-col justify-center gap-7 sm:gap-9 pt-2">
-            {socialProfiles.map((item) => (
-              <div key={item.label} className="flex flex-col gap-1.5 group">
-                <span className="font-mono text-[11px] uppercase tracking-widest text-black/60 font-bold">
-                  // {item.category}
-                </span>
-
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-3.5 text-black hover:opacity-80 transition-all duration-200"
-                >
-                  {/* Brand Logo beside the title */}
-                  <span className={`shrink-0 p-2 sm:p-2.5 rounded-lg ${item.badgeBg} shadow-sm group-hover:scale-110 transition-transform duration-200`}>
-                    {item.icon}
-                  </span>
-
-                  {/* Profile Title */}
-                  <span className="font-heading text-2xl sm:text-4xl font-black uppercase tracking-tight text-black group-hover:underline decoration-2 underline-offset-4">
-                    {item.label}
-                  </span>
-
-                  <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-black/60 group-hover:text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </a>
-
-                {/* Handle under the title */}
-                <span className="font-mono text-xs sm:text-sm text-black/70 pl-12 sm:pl-15 font-semibold">
-                  {item.handle}
+            {/* Sub-Footer Bar */}
+            <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 font-mono text-[11px] sm:text-xs text-black/75 font-semibold border-t border-black/15">
+              <div>
+                © 2026 by Prayas Dey. All rights reserved.
+              </div>
+              <div className="flex items-center gap-3 text-black">
+                <span>DESIGNED WITH MOTION & CRAFT</span>
+                <span className="font-bold bg-black text-[#8EE929] px-2 py-0.5 rounded-sm text-[10px]">
+                  SYS: ONLINE
                 </span>
               </div>
-            ))}
+            </div>
+
           </div>
-
-        </div>
-
-        {/* Bottom Giant Screen-Spanning Dot-Matrix Banner with Liquid Wave Distortion */}
-        <div className="pt-4 sm:pt-6">
-          <DotMatrixBanner text="PORTFOLIO/PRAYAS" />
-        </div>
-
-        {/* Sub-Footer Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-black/75 font-semibold border-t border-black/15">
-          <div>
-            © 2026 by Prayas Dey. All rights reserved.
-          </div>
-          <div className="flex items-center gap-4 text-black">
-            <span>DESIGNED WITH MOTION & CRAFT</span>
-            <span className="font-bold bg-black text-[#8EE929] px-2 py-0.5 rounded-sm">
-              SYS: ONLINE
-            </span>
-          </div>
-        </div>
-
-      </div>
         </footer>
       </div>
     </div>
