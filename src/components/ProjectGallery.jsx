@@ -53,6 +53,7 @@ const projects = [
     github: 'https://github.com/Prayas340/CareerForge-AI',
     offsetY: '-translate-y-4',
     mockupType: 'career',
+    image: '/assets/career-forge-mockup.jpg',
   },
   {
     id: 'youtube-copilot',
