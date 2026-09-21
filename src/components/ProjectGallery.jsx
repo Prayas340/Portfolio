@@ -65,6 +65,7 @@ const projects = [
     github: 'https://github.com/Prayas340/Youtube-copilot-Rag-',
     offsetY: 'translate-y-4',
     mockupType: 'copilot',
+    image: '/assets/youtube-copilot-mockup.jpg',
   },
   {
     id: 'personal-ai-journal',
