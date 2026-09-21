@@ -24,11 +24,12 @@ const projects = [
     title: 'JANSETU AI',
     category: 'CIVIC TECH',
     type: 'AI TOOL',
-    summary: 'Generative AI civic assistant navigating public schemes & policies.',
+    summary: 'Autonomous AI governance platform navigating 650+ welfare schemes with multilingual access.',
     demo: 'https://jan-setu-ai-tawny.vercel.app/',
     github: 'https://github.com/Prayas340/JanSetu-AI',
     offsetY: '-translate-y-4',
     mockupType: 'civic',
+    image: '/assets/jansetu-mockup.jpg',
   },
   {
     id: 'macos-portfolio',
