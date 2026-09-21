@@ -174,7 +174,7 @@ export default function Nav() {
                         handleNavClick(link.href);
                       }}
                       onMouseEnter={playCyberHover}
-                      className="group relative inline-block font-heading text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#EDEDED] transition-colors duration-200 hover:text-white"
+                      className="group relative inline-block font-title text-4xl sm:text-6xl md:text-7xl font-bold tracking-normal text-[#EDEDED] transition-colors duration-200 hover:text-white"
                     >
                       <span className="relative z-10">{link.label}</span>
                       {/* Green Underline Width 0% -> 100% */}

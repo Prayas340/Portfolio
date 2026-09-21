@@ -129,7 +129,7 @@ export default function PixelDissolve({ scrollYProgress, startProgress = 0.48, e
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
-            <span className="font-heading text-5xl sm:text-7xl font-extrabold uppercase tracking-tighter text-white/20">
+            <span className="font-title text-5xl sm:text-7xl font-extrabold uppercase tracking-normal text-white/20">
               PHILOSOPHY
             </span>
           </div>

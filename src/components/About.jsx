@@ -32,7 +32,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="font-heading text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-[#EDEDED] mb-10"
+          className="font-title text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-normal text-[#EDEDED] mb-10"
         >
           Architecting systems with <span className="text-[#39FF6A]">soul</span> and speed.
         </motion.h2>

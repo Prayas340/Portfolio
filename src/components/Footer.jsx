@@ -68,7 +68,7 @@ export default function Footer() {
 
         {/* Large Closing Headline with Cyber Glitch Effect */}
         <div className="mb-12 select-none">
-          <h2 className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tighter text-[#EDEDED] leading-[0.88]">
+          <h2 className="font-title text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold uppercase tracking-wide text-[#EDEDED] leading-[0.95]">
             <GlitchText text="LET'S BUILD" className="block text-[#EDEDED]" /><br />
             <GlitchText text="SOMETHING." className="text-[#39FF6A] drop-shadow-[0_0_35px_rgba(57,255,106,0.35)]" />
           </h2>

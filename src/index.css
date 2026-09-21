@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Neoradical';
+  src: url('/fonts/Neoradical.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-bg: #0A0A0A;
   --color-bg-darker: #050505;
@@ -17,8 +25,13 @@
   --color-text-dim: #555555;
 
   --font-heading: 'Rajdhani', sans-serif;
+  --font-title: 'Neoradical', 'Rajdhani', sans-serif;
   --font-mono: 'DM Mono', monospace;
   --font-sans: 'DM Sans', sans-serif;
+}
+
+.font-title {
+  font-family: 'Neoradical', 'Rajdhani', sans-serif;
 }
 
 :root {

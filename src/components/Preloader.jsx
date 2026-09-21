@@ -82,7 +82,7 @@ export default function Preloader({ onComplete }) {
       {/* Center Glitch Text */}
       <div className="relative z-10 flex flex-col items-center justify-center my-auto">
         <div 
-          className="flex items-center justify-center font-heading text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-[#EDEDED] select-none"
+          className="flex items-center justify-center font-title text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-normal text-[#EDEDED] select-none"
           style={{
             transform: `translate(${flickerOffset.x}px, ${flickerOffset.y}px)`,
             transition: 'transform 0.05s ease-out'

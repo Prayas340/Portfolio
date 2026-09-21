@@ -65,7 +65,7 @@ export default function Experience() {
               <span className="w-2 h-2 rounded-full bg-[#39FF6A] animate-pulse" />
               <span>// 03 — EXPERIENCE</span>
             </div>
-            <h2 className="font-heading text-4xl sm:text-6xl font-bold uppercase tracking-tight text-[#EDEDED]">
+            <h2 className="font-title text-4xl sm:text-6xl font-bold uppercase tracking-normal text-[#EDEDED]">
               EXPERIENCE
             </h2>
           </div>

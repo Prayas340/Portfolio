@@ -98,7 +98,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 flex items-center overflow-hidden select-none z-0"
         aria-hidden="true"
       >
-        <div className="flex whitespace-nowrap animate-marquee opacity-[0.06] font-heading font-bold text-[18vw] leading-none text-[#39FF6A] tracking-tighter">
+        <div className="flex whitespace-nowrap animate-marquee opacity-[0.06] font-title font-bold text-[18vw] leading-none text-[#39FF6A] tracking-normal">
           <span>BUILD — SHIP — REPEAT — BUILD — SHIP — REPEAT —&nbsp;</span>
           <span>BUILD — SHIP — REPEAT — BUILD — SHIP — REPEAT —&nbsp;</span>
         </div>
@@ -133,7 +133,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
             className="overflow-hidden"
           >
-            <h1 className="font-heading text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter text-[#EDEDED] uppercase leading-[0.88] select-none">
+            <h1 className="font-title text-6xl sm:text-8xl md:text-9xl font-bold tracking-wide text-[#EDEDED] uppercase leading-[0.95] select-none">
               <GlitchText text="PRAYAS" className="block text-[#EDEDED]" /><br />
               <GlitchText text="DEY." className="text-[#39FF6A] drop-shadow-[0_0_35px_rgba(57,255,106,0.35)]" />
             </h1>

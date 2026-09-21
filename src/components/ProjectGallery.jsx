@@ -247,7 +247,7 @@ export default function ProjectGallery() {
               <span className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-widest bg-black text-[#8fd92f] rounded mb-4">
                 SELECTED WORK
               </span>
-              <h2 className="font-heading text-6xl font-extrabold uppercase tracking-tighter text-[#3E1280] leading-[0.85]">
+              <h2 className="font-title text-6xl font-extrabold uppercase tracking-normal text-[#3E1280] leading-[0.9]">
                 SELECTED<br />WORK
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
@@ -293,7 +293,7 @@ export default function ProjectGallery() {
                 </div>
 
                 {/* Massive "SELECTED WORK" Headline */}
-                <h2 className="font-heading text-6xl sm:text-7xl md:text-8xl lg:text-[5.5rem] font-bold uppercase tracking-tighter text-[#3E1280] leading-[0.84] select-none">
+                <h2 className="font-title text-6xl sm:text-7xl md:text-8xl lg:text-[5.5rem] font-bold uppercase tracking-normal text-[#3E1280] leading-[0.9] select-none">
                   SELECTED<br />
                   WORK
                 </h2>

@@ -179,7 +179,7 @@ export default function AboutDeck() {
 
         {/* Main Headline - Glitch Effect Retained Here */}
         <div className="mt-3 sm:mt-6">
-          <h2 className="font-heading text-xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#EDEDED] leading-tight">
+          <h2 className="font-title text-xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase tracking-normal text-[#EDEDED] leading-tight">
             <GlitchText text="ARCHITECTING SYSTEMS WITH" triggerOnView={true} delay={100} />{' '}
             <GlitchText
               text="SOUL"
