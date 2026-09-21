@@ -83,6 +83,7 @@ export default function ProjectGallery() {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [isSectionHovered, setIsSectionHovered] = useState(false);
   const [scrollRange, setScrollRange] = useState(4800);
+  const [scrollDirection, setScrollDirection] = useState('down');
 
   // Dynamic track measurement covering Projects + Pixel Dissolve + About Deck
   useEffect(() => {
@@ -135,6 +136,64 @@ export default function ProjectGallery() {
     [0, -scrollRange, -scrollRange]
   );
 
+  // Track scroll direction: 'down' (forward) vs 'up' (backward)
+  useEffect(() => {
+    let lastProgress = scrollYProgress.get();
+    let lastY = typeof window !== 'undefined' ? window.scrollY : 0;
+
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      const diff = latest - lastProgress;
+      if (Math.abs(diff) > 0.0001) {
+        setScrollDirection(diff > 0 ? 'down' : 'up');
+        lastProgress = latest;
+      }
+    });
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const diff = currentY - lastY;
+      if (Math.abs(diff) > 1) {
+        setScrollDirection(diff > 0 ? 'down' : 'up');
+        lastY = currentY;
+      }
+    };
+
+    const handleWheel = (e) => {
+      if (Math.abs(e.deltaY) > 0.5) {
+        setScrollDirection(e.deltaY > 0 ? 'down' : 'up');
+      }
+    };
+
+    let touchStartY = 0;
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        touchStartY = e.touches[0].clientY;
+      }
+    };
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches[0]) {
+        const touchY = e.touches[0].clientY;
+        const diff = touchStartY - touchY;
+        if (Math.abs(diff) > 4) {
+          setScrollDirection(diff > 0 ? 'down' : 'up');
+          touchStartY = touchY;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [scrollYProgress]);
 
   const handleMouseMove = (e) => {
     setCursorPos({ x: e.clientX, y: e.clientY });
@@ -193,7 +252,13 @@ export default function ProjectGallery() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                 {projects.map((project, index) => (
-                  <ProjectCardItem key={project.id} project={project} index={index} isMobile={true} />
+                  <ProjectCardItem
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    isMobile={true}
+                    scrollDirection={scrollDirection}
+                  />
                 ))}
               </div>
             </div>
@@ -255,7 +320,12 @@ export default function ProjectGallery() {
 
               {/* 6 Alternating Staggered Project Cards (Always on solid green background!) */}
               {projects.map((project, index) => (
-                <ProjectCardItem key={project.id} project={project} index={index} />
+                <ProjectCardItem
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  scrollDirection={scrollDirection}
+                />
               ))}
             </div>
 
@@ -295,7 +365,7 @@ export default function ProjectGallery() {
 }
 
 // Single Project Card Item with Alternating Stagger & UI Mockup
-function ProjectCardItem({ project, index, isMobile }) {
+function ProjectCardItem({ project, index, isMobile, scrollDirection }) {
   return (
     <div
       className={`project-card-item shrink-0 w-[85vw] sm:w-[460px] md:w-[500px] lg:w-[540px] transition-transform duration-300 ${
@@ -309,7 +379,7 @@ function ProjectCardItem({ project, index, isMobile }) {
           {renderMockupContent(project.mockupType, project.title)}
 
           {/* Curtis Designr Pixelated Construction Reveal Animation */}
-          <ProjectPixelReveal index={index} />
+          <ProjectPixelReveal index={index} scrollDirection={scrollDirection} />
 
           {/* Corner Crosshairs */}
           <span className="absolute top-2 left-2 font-mono text-[10px] text-white/50 font-bold select-none z-35 pointer-events-none">+</span>
