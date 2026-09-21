@@ -11,57 +11,6 @@ export const GeeksforGeeksLogo = ({ className = "w-16 h-16" }) => (
   </svg>
 );
 
-// Custom Emblem SVGs for the other affiliations
-const TechClubEmblem = ({ className = "w-16 h-16" }) => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <rect x="6" y="10" width="52" height="44" rx="4" stroke="currentColor" strokeWidth="2.5" strokeDasharray="6 2" />
-    <path d="M16 26L24 32L16 38" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-    <line x1="28" y1="38" x2="44" y2="38" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    <circle cx="50" cy="18" r="2" fill="currentColor" />
-  </svg>
-);
-
-const SaharaEmblem = ({ className = "w-16 h-16" }) => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <path d="M14 44C10.686 44 8 41.314 8 38C8 35.1 10.05 32.7 12.8 32.1C13.2 24.8 19.3 19 26.8 19C33 19 38.3 23 39.8 28.7C41.3 27.6 43.1 27 45 27C49.97 27 54 31.03 54 36C54 36.4 53.97 36.8 53.9 37.2C55.7 38.4 56.9 40.5 56.9 42.8C56.9 46.5 53.9 49.5 50.2 49.5L14 49.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-    <circle cx="27" cy="34" r="3" fill="currentColor" />
-    <circle cx="41" cy="38" r="3" fill="currentColor" />
-    <line x1="27" y1="34" x2="41" y2="38" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2" />
-  </svg>
-);
-
-const JanSetuEmblem = ({ className = "w-16 h-16" }) => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <polygon points="32,8 54,20 54,44 32,56 10,44 10,20" stroke="currentColor" strokeWidth="2.5" />
-    <polygon points="32,18 45,26 45,38 32,46 19,38 19,26" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
-    <circle cx="32" cy="32" r="5" fill="currentColor" />
-  </svg>
-);
-
-const YtCopilotEmblem = ({ className = "w-16 h-16" }) => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <rect x="8" y="14" width="48" height="36" rx="10" stroke="currentColor" strokeWidth="2.5" />
-    <polygon points="26,24 42,32 26,40" fill="currentColor" />
-    <path d="M16 54C24 51 40 51 48 54" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const CareerForgeEmblem = ({ className = "w-16 h-16" }) => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <path d="M12 22L32 10L52 22V42L32 54L12 42V22Z" stroke="currentColor" strokeWidth="2.5" />
-    <path d="M32 22V42" stroke="currentColor" strokeWidth="2" />
-    <path d="M20 28L32 35L44 28" stroke="currentColor" strokeWidth="2" />
-  </svg>
-);
-
-const OpenSourceEmblem = ({ className = "w-16 h-16" }) => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <circle cx="32" cy="32" r="22" stroke="currentColor" strokeWidth="2.5" />
-    <ellipse cx="32" cy="32" rx="10" ry="22" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
-    <line x1="10" y1="32" x2="54" y2="32" stroke="currentColor" strokeWidth="2" />
-  </svg>
-);
-
 const leftExperiences = [
   {
     id: 'gfg',
@@ -80,112 +29,9 @@ const leftExperiences = [
     tags: ['GeeksforGeeks', 'Campus Mantri', 'DSA & Algorithms', 'Developer Advocacy', 'Technical Mentorship'],
     renderEmblem: (className) => <GeeksforGeeksLogo className={className} />,
   },
-  {
-    id: 'rcciit',
-    num: '02',
-    company: 'RCCIIT TECH',
-    role: 'TECH LEAD & MENTOR',
-    displayLogoName: 'RCCIIT TECH',
-    type: 'Leadership',
-    period: 'AUG 2024 — PRESENT',
-    location: 'Kolkata, West Bengal',
-    summary:
-      'Spearheading technical workshops, algorithmic problem-solving cohorts, and collegiate open-source hackathons for budding software developers.',
-    details:
-      'Directing dev sprints, guiding junior engineers through distributed architecture patterns, and standardizing full-stack web engineering curriculums.',
-    badge: 'Technical Society',
-    tags: ['Tech Leadership', 'React', 'Node.js', 'System Architecture', 'Mentorship'],
-    renderEmblem: (className) => <TechClubEmblem className={className} />,
-  },
-  {
-    id: 'sahara',
-    num: '03',
-    company: 'SAHARA CLOUD',
-    role: 'FULL STACK DEV',
-    displayLogoName: 'SAHARA',
-    type: 'Production Dev',
-    period: 'OCT 2024 — JAN 2025',
-    location: 'Remote',
-    summary:
-      'Architected modern cloud analytics interface and responsive micro-frontend ecosystem featuring real-time data telemetry and ultra-low latency rendering.',
-    details:
-      'Engineered interactive telemetry charts, responsive layouts, and robust state sync across complex browser workspaces.',
-    badge: 'Cloud Ecosystem',
-    tags: ['React 19', 'Next.js', 'Tailwind CSS', 'Cloud Analytics'],
-    renderEmblem: (className) => <SaharaEmblem className={className} />,
-  },
-  {
-    id: 'jansetu',
-    num: '04',
-    company: 'JANSETU AI',
-    role: 'CIVIC AI ARCHITECT',
-    displayLogoName: 'JANSETU AI',
-    type: 'AI Tooling',
-    period: 'DEC 2024 — PRESENT',
-    location: 'Remote',
-    summary:
-      'Developed generative AI civic knowledge platform helping citizens navigate governmental policies with conversational reasoning and contextual document retrieval.',
-    details:
-      'Crafted multi-language semantic query pipelines, prompt safety guardrails, and accessibility-first responsive UI components.',
-    badge: 'Civic AI Innovation',
-    tags: ['GenAI', 'LLMs', 'Civic Tech', 'Semantic RAG'],
-    renderEmblem: (className) => <JanSetuEmblem className={className} />,
-  },
 ];
 
-const rightExperiences = [
-  {
-    id: 'ytcopilot',
-    num: '05',
-    company: 'YT COPILOT',
-    role: 'AI & RAG DEVELOPER',
-    displayLogoName: 'YT COPILOT',
-    type: 'RAG / Search',
-    period: 'JAN 2025 — PRESENT',
-    location: 'Remote',
-    summary:
-      'Engineered vector-indexed video transcript semantic search engine delivering millisecond citation lookups and timestamped conversational summaries.',
-    details:
-      'Integrated embeddings vector pipelines, chunking algorithms, and token-optimized contextual question answering for extensive technical videos.',
-    badge: 'Vector Search',
-    tags: ['Vector DB', 'Embeddings', 'LangChain', 'FastAPI'],
-    renderEmblem: (className) => <YtCopilotEmblem className={className} />,
-  },
-  {
-    id: 'careerforge',
-    num: '06',
-    company: 'CAREER FORGE',
-    role: 'GEN AI SPECIALIST',
-    displayLogoName: 'CAREER FORGE',
-    type: 'Systems AI',
-    period: 'NOV 2024 — PRESENT',
-    location: 'Remote',
-    summary:
-      'Designed automated ATS resume audit engine and adaptive mock technical interview simulator with quantified speech-and-text score telemetry.',
-    details:
-      'Constructed benchmark scoring metrics, semantic keyword matching, and real-time audio transcript evaluators for technical candidates.',
-    badge: 'Adaptive Intelligence',
-    tags: ['ATS Scoring', 'NLP', 'Career AI', 'Telemetry'],
-    renderEmblem: (className) => <CareerForgeEmblem className={className} />,
-  },
-  {
-    id: 'opensource',
-    num: '07',
-    company: 'OPEN SOURCE',
-    role: 'CORE CONTRIBUTOR',
-    displayLogoName: 'OPEN SOURCE',
-    type: 'Community',
-    period: '2023 — PRESENT',
-    location: 'Global',
-    summary:
-      'Active open-source contributor publishing developer toolkits, modern web UI modules, and algorithmic problem-solving repositories on GitHub.',
-    details:
-      'Advocating for accessible codebases, documentation fidelity, and community-driven peer reviews across modern JavaScript and Python tooling.',
-    badge: 'Ecosystem Commons',
-    tags: ['Git', 'GitHub', 'Open Source', 'Developer Tools'],
-    renderEmblem: (className) => <OpenSourceEmblem className={className} />,
-  },
-];
+const rightExperiences = [];
 
 const allExperiences = [...leftExperiences, ...rightExperiences];
 
@@ -235,10 +81,10 @@ export default function Experience() {
           </div>
         </motion.div>
 
-        {/* Main 3-Column Experience Grid (Matching Photo 2 Reference) */}
+        {/* 3-Column Interface: Left tab, Center box, Symmetrical grid balance */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: 01 to 04 Tabs */}
+          {/* Left Column: 01 GeeksforGeeks Tab */}
           <div className="lg:col-span-3 flex flex-col gap-3.5 order-2 lg:order-1">
             {leftExperiences.map((item) => {
               const isActive = selectedId === item.id;
@@ -381,7 +227,7 @@ export default function Experience() {
               />
             </div>
 
-            {/* Description & Role Details Under Center Box (Matches Photo 2) */}
+            {/* Description & Role Details Under Center Box */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedItem.id}
@@ -404,35 +250,33 @@ export default function Experience() {
                   </span>
                 </div>
 
-                {/* Primary Role Summary Paragraph (Matching Photo 2) */}
+                {/* Primary Role Summary Paragraph */}
                 <p className="font-sans text-sm sm:text-base text-[#EDEDED] font-normal leading-relaxed text-center px-4">
                   {selectedItem.summary}
                 </p>
 
                 {/* GFG Campus Mantri Highlight Card */}
-                {selectedItem.id === 'gfg' && (
-                  <div className="w-full mt-2 p-3 sm:p-3.5 rounded-lg border border-[#39FF6A]/30 bg-gradient-to-r from-[#0d160f] to-[#0a0f0b] flex items-center justify-between gap-3 text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded bg-white text-black font-heading font-black text-xs flex flex-col items-center justify-center tracking-tighter p-1 text-center shadow shrink-0">
-                        <span className="text-[9px] text-[#2F8D46] font-bold">GFG</span>
-                        <span className="leading-none text-[8px]">MANTRI</span>
-                      </div>
-                      <div>
-                        <div className="font-heading text-xs sm:text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                          <span>Campus Mantri Program</span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#39FF6A] animate-ping" />
-                        </div>
-                        <p className="font-mono text-[10px] text-[#8E8E93]">
-                          Official Ambassador Initiative by GeeksforGeeks
-                        </p>
-                      </div>
+                <div className="w-full mt-2 p-3 sm:p-3.5 rounded-lg border border-[#39FF6A]/30 bg-gradient-to-r from-[#0d160f] to-[#0a0f0b] flex items-center justify-between gap-3 text-left">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded bg-white text-black font-heading font-black text-xs flex flex-col items-center justify-center tracking-tighter p-1 text-center shadow shrink-0">
+                      <span className="text-[9px] text-[#2F8D46] font-bold">GFG</span>
+                      <span className="leading-none text-[8px]">MANTRI</span>
                     </div>
-
-                    <div className="hidden sm:inline-block font-mono text-[11px] text-[#39FF6A] px-2.5 py-1 rounded bg-[#39FF6A]/10 border border-[#39FF6A]/25 shrink-0">
-                      MENTOR & REP
+                    <div>
+                      <div className="font-heading text-xs sm:text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                        <span>Campus Mantri Program</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#39FF6A] animate-ping" />
+                      </div>
+                      <p className="font-mono text-[10px] text-[#8E8E93]">
+                        Official Ambassador Initiative by GeeksforGeeks
+                      </p>
                     </div>
                   </div>
-                )}
+
+                  <div className="hidden sm:inline-block font-mono text-[11px] text-[#39FF6A] px-2.5 py-1 rounded bg-[#39FF6A]/10 border border-[#39FF6A]/25 shrink-0">
+                    MENTOR & REP
+                  </div>
+                </div>
 
                 {/* Skill / Technology Tags */}
                 <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2">
@@ -449,59 +293,8 @@ export default function Experience() {
             </AnimatePresence>
           </div>
 
-          {/* Right Column: 05 to 07 Tabs */}
-          <div className="lg:col-span-3 flex flex-col gap-3.5 order-3">
-            {rightExperiences.map((item) => {
-              const isActive = selectedId === item.id;
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => handleSelect(item.id)}
-                  onMouseEnter={playCyberHover}
-                  className={`w-full cursor-pointer transition-all duration-200 ${
-                    isActive
-                      ? 'bg-[#EDECE6] cyber-chamfer-right-active shadow-[0_0_20px_rgba(237,236,230,0.15)]'
-                      : 'bg-white/10 hover:bg-[#39FF6A]/40 cyber-chamfer-right-inactive p-[1px] group'
-                  }`}
-                >
-                  <div
-                    className={`w-full flex items-center gap-3.5 px-4 py-3.5 transition-colors ${
-                      isActive
-                        ? 'bg-[#EDECE6] text-black pl-6'
-                        : 'bg-[#0B0D0C] hover:bg-[#121714] cyber-chamfer-right-inactive text-[#EDEDED]'
-                    }`}
-                  >
-                    {/* Index Number */}
-                    <span
-                      className={`font-mono text-xs sm:text-sm font-bold shrink-0 ${
-                        isActive ? 'text-[#1F1F1F]' : 'text-[#39FF6A]/80 group-hover:text-[#39FF6A]'
-                      }`}
-                    >
-                      {item.num}
-                    </span>
-
-                    {/* Company and Role Info */}
-                    <div className="min-w-0 text-left">
-                      <h4
-                        className={`font-heading font-black text-sm sm:text-base tracking-wider uppercase truncate leading-tight ${
-                          isActive ? 'text-black' : 'text-white/90 group-hover:text-white'
-                        }`}
-                      >
-                        {item.company}
-                      </h4>
-                      <p
-                        className={`font-mono text-[10px] sm:text-[11px] tracking-wider uppercase truncate mt-0.5 ${
-                          isActive ? 'text-[#444444] font-semibold' : 'text-[#8E8E93] group-hover:text-[#A1A1AA]'
-                        }`}
-                      >
-                        {item.role}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* Right Column: Symmetrical Grid Balancer (Preserves central positioning) */}
+          <div className="lg:col-span-3 hidden lg:block order-3" aria-hidden="true" />
 
         </div>
       </div>
