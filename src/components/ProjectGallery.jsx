@@ -12,11 +12,12 @@ const projects = [
     title: 'SAHARA',
     category: 'CASE STUDY',
     type: 'WEB APP',
-    summary: 'Cloud-native analytics platform & responsive web ecosystem.',
+    summary: 'Everyday support and caregiving ecosystem with multilingual voice companionship.',
     demo: 'https://sahara-lac.vercel.app/',
     github: 'https://github.com/Prayas340/sahara',
     offsetY: 'translate-y-4',
     mockupType: 'dashboard',
+    image: '/assets/sahara-mockup.jpg',
   },
   {
     id: 'jan-setu-ai',
@@ -376,7 +377,16 @@ function ProjectCardItem({ project, index, isMobile, scrollDirection }) {
       <div className="group relative rounded-xl overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.25)] border border-black/15 bg-[#0e120f] transition-all duration-300 hover:shadow-[0_25px_50px_rgba(0,0,0,0.35)] hover:scale-[1.015]">
         {/* Render Rich Mockup Interface based on Project Type */}
         <div className="relative aspect-[16/10] overflow-hidden bg-[#0a0d0b]">
-          {renderMockupContent(project.mockupType, project.title)}
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+              loading="lazy"
+            />
+          ) : (
+            renderMockupContent(project.mockupType, project.title)
+          )}
 
           {/* Curtis Designr Pixelated Construction Reveal Animation */}
           <ProjectPixelReveal index={index} scrollDirection={scrollDirection} />
@@ -445,7 +455,7 @@ function ProjectCardItem({ project, index, isMobile, scrollDirection }) {
 }
 
 // Helper to render high-fidelity mockups for Prayas's projects
-function renderMockupContent(type, title) {
+function renderMockupContent(type, _title) {
   switch (type) {
     case 'dashboard': // Sahara
       return (
