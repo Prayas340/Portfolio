@@ -23,11 +23,19 @@ const LinkedInIcon = ({ className = "w-6 h-6" }) => (
   </svg>
 );
 
-// Interactive Dot Matrix Canvas Banner for "PORTFOLIO/PRAYAS"
+// Liquid Wave Ripple Dot Matrix Canvas for "PORTFOLIO/PRAYAS"
 function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const mousePosRef = useRef({ x: -1000, y: -1000 });
+  const mouseRef = useRef({
+    x: -1000,
+    y: -1000,
+    targetX: -1000,
+    targetY: -1000,
+    isHovering: false,
+    speed: 0,
+    waveEnergy: 0,
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -36,23 +44,13 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
 
     const ctx = canvas.getContext('2d');
     let animationFrameId;
+    let time = 0;
 
-    const render = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = container.getBoundingClientRect();
-      const width = rect.width;
-      if (width <= 0) return;
+    let cachedImgData = null;
+    let cachedWidth = 0;
+    let cachedHeight = 0;
 
-      const height = Math.max(110, Math.min(260, width * 0.17));
-
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-
-      ctx.save();
-      ctx.scale(dpr, dpr);
-
+    const generateTextRaster = (width, height) => {
       const off = document.createElement('canvas');
       const offCtx = off.getContext('2d');
       off.width = Math.floor(width);
@@ -72,74 +70,176 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       offCtx.fillStyle = '#000000';
       offCtx.fillText(text, width / 2, height / 2 + fontSize * 0.04);
 
-      const imgData = offCtx.getImageData(0, 0, width, height);
-      const data = imgData.data;
+      cachedImgData = offCtx.getImageData(0, 0, width, height);
+      cachedWidth = width;
+      cachedHeight = height;
+    };
 
+    const loop = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = container.getBoundingClientRect();
+      const width = Math.floor(rect.width);
+      if (width <= 0) {
+        animationFrameId = requestAnimationFrame(loop);
+        return;
+      }
+
+      const height = Math.floor(Math.max(110, Math.min(260, width * 0.17)));
+
+      if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        generateTextRaster(width, height);
+      } else if (!cachedImgData || cachedWidth !== width || cachedHeight !== height) {
+        generateTextRaster(width, height);
+      }
+
+      const mouse = mouseRef.current;
+
+      // Smooth lerp mouse towards pointer position
+      if (mouse.isHovering) {
+        const dx = mouse.targetX - mouse.x;
+        const dy = mouse.targetY - mouse.y;
+        mouse.speed = Math.hypot(dx, dy);
+        mouse.x += dx * 0.22;
+        mouse.y += dy * 0.22;
+        mouse.waveEnergy = Math.min(1, mouse.waveEnergy + 0.12);
+      } else {
+        mouse.waveEnergy *= 0.93;
+        mouse.speed *= 0.88;
+        if (mouse.waveEnergy < 0.005) {
+          mouse.waveEnergy = 0;
+        }
+      }
+
+      time += 0.045;
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, width, height);
 
       const dotStep = Math.max(4.5, Math.min(8.5, width / 175));
       const dotSize = dotStep * 0.72;
-      const mouse = mousePosRef.current;
+      const radius = 175; // wave ripple radius
+      const data = cachedImgData ? cachedImgData.data : null;
 
       for (let y = dotStep / 2; y < height; y += dotStep) {
         for (let x = dotStep / 2; x < width; x += dotStep) {
-          const pixelIndex = (Math.floor(y) * width + Math.floor(x)) * 4;
-          const alpha = data[pixelIndex + 3] || 0;
+          let alpha = 0;
+          if (data) {
+            const pixelIndex = (Math.floor(y) * width + Math.floor(x)) * 4;
+            alpha = data[pixelIndex + 3] || 0;
+          }
 
-          const dist = Math.hypot(x - mouse.x, y - mouse.y);
-          const isNear = dist < 80;
-          const boost = isNear ? (1 - dist / 80) * 0.45 : 0;
+          let finalX = x;
+          let finalY = y;
+          let factor = 0;
 
-          if (alpha > 75) {
-            ctx.fillStyle = '#080A08';
-            const s = dotSize * (1 + boost * 0.25);
-            ctx.fillRect(x - s / 2, y - s / 2, s, s);
+          if (mouse.waveEnergy > 0) {
+            const dist = Math.hypot(x - mouse.x, y - mouse.y);
+            if (dist < radius) {
+              factor = Math.pow(1 - dist / radius, 1.35) * mouse.waveEnergy;
+              const angle = Math.atan2(y - mouse.y, x - mouse.x);
+
+              // Traveling ripple wave + fluid sinusoidal undulation matching the screenshot
+              const ripple = Math.sin(dist * 0.075 - time * 3.8) * factor * 22;
+              const harmonicX = Math.sin(y * 0.055 + time * 2.2) * factor * 12;
+              const harmonicY = Math.cos(x * 0.055 + time * 2.2) * factor * 14;
+
+              finalX = x + Math.cos(angle) * ripple + harmonicX;
+              finalY = y + Math.sin(angle) * ripple + harmonicY;
+            }
+          }
+
+          if (alpha > 70) {
+            // Lit text dot: Solid black with chromatic deep purple/violet wave shift
+            if (factor > 0.035) {
+              const r = Math.round(8 + factor * 85);
+              const g = Math.round(10 + factor * 10);
+              const b = Math.round(8 + factor * 145);
+              ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+            } else {
+              ctx.fillStyle = '#080A08';
+            }
+            const s = dotSize * (1 + factor * 0.28);
+            ctx.fillRect(finalX - s / 2, finalY - s / 2, s, s);
           } else {
-            ctx.fillStyle = isNear ? `rgba(0, 0, 0, ${0.14 + boost * 0.2})` : 'rgba(0, 0, 0, 0.085)';
-            const s = (dotSize * 0.5) * (1 + boost * 0.4);
-            ctx.fillRect(x - s / 2, y - s / 2, s, s);
+            // Background unlit dot
+            if (factor > 0.035) {
+              const r = Math.round(factor * 65);
+              const b = Math.round(factor * 115);
+              const alphaVal = 0.08 + factor * 0.25;
+              ctx.fillStyle = `rgba(${r}, 12, ${b}, ${alphaVal})`;
+            } else {
+              ctx.fillStyle = 'rgba(0, 0, 0, 0.085)';
+            }
+            const s = (dotSize * 0.5) * (1 + factor * 0.35);
+            ctx.fillRect(finalX - s / 2, finalY - s / 2, s, s);
           }
         }
       }
 
+      // Cursor Ring (matching the circular ring in reference screenshot)
+      if (mouse.isHovering && mouse.x > 0 && mouse.y > 0) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(10, 20, 10, 0.75)';
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        ctx.restore();
+      }
+
       ctx.restore();
+
+      animationFrameId = requestAnimationFrame(loop);
     };
+
+    animationFrameId = requestAnimationFrame(loop);
 
     if (document.fonts) {
-      document.fonts.ready.then(render);
+      document.fonts.ready.then(() => {
+        generateTextRaster(cachedWidth, cachedHeight);
+      });
     }
-    render();
-
-    const handleResize = () => {
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(render);
-    };
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      mousePosRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      };
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(render);
+      const mouse = mouseRef.current;
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
+      mouse.isHovering = true;
+      if (mouse.x < -500) {
+        mouse.x = mouse.targetX;
+        mouse.y = mouse.targetY;
+      }
     };
 
     const handleMouseLeave = () => {
-      mousePosRef.current = { x: -1000, y: -1000 };
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(render);
+      mouseRef.current.isHovering = false;
     };
 
-    window.addEventListener('resize', handleResize);
+    const handleMouseEnter = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouse = mouseRef.current;
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
+      mouse.x = mouse.targetX;
+      mouse.y = mouse.targetY;
+      mouse.isHovering = true;
+    };
+
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
+    canvas.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
+      canvas.removeEventListener('mouseenter', handleMouseEnter);
     };
   }, [text]);
 
@@ -287,7 +387,7 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Giant Screen-Spanning Dot-Matrix Banner: "PORTFOLIO/PRAYAS" */}
+        {/* Bottom Giant Screen-Spanning Dot-Matrix Banner with Liquid Wave Distortion */}
         <div className="pt-4 sm:pt-6">
           <DotMatrixBanner text="PORTFOLIO/PRAYAS" />
         </div>
