@@ -41,6 +41,7 @@ const projects = [
     github: 'https://github.com/Prayas340/Mac-OS-Portfolio',
     offsetY: 'translate-y-3',
     mockupType: 'macos',
+    image: '/assets/macos-mockup.jpg',
   },
   {
     id: 'career-forge-ai',
