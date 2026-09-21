@@ -51,6 +51,7 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
     let cachedHeight = 0;
 
     const generateTextRaster = (width, height) => {
+      if (!width || !height || width <= 0 || height <= 0) return;
       const off = document.createElement('canvas');
       const offCtx = off.getContext('2d');
       off.width = Math.floor(width);
@@ -201,7 +202,9 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
 
     if (document.fonts) {
       document.fonts.ready.then(() => {
-        generateTextRaster(cachedWidth, cachedHeight);
+        if (cachedWidth > 0 && cachedHeight > 0) {
+          generateTextRaster(cachedWidth, cachedHeight);
+        }
       });
     }
 
