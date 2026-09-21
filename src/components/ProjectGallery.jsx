@@ -77,6 +77,7 @@ const projects = [
     github: 'https://github.com/Prayas340/personal-ai-journal',
     offsetY: '-translate-y-3',
     mockupType: 'journal',
+    image: '/assets/ai-journal-mockup.jpg',
   },
 ];
 
