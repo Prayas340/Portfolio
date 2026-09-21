@@ -56,10 +56,10 @@ export default function App() {
       <div className="cyber-scanline-beam" aria-hidden="true" />
       <div className="pointer-events-none fixed inset-0 z-[9990] scanlines opacity-[0.08]" aria-hidden="true" />
 
-      {/* Main Single-Page Experience */}
+      {/* Main Single-Page Experience on top of sticky footer */}
       <CustomCursor />
       <Nav />
-      <main>
+      <main className="relative z-10 bg-[#0A0A0A] shadow-[0_50px_100px_rgba(0,0,0,0.95)]">
         <Hero />
         <SkillsMarquee />
         <ProjectGallery />

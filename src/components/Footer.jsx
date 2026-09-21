@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import { playCyberHover, playCyberClick } from '../utils/audio';
@@ -279,12 +279,48 @@ export default function Footer() {
     },
   ];
 
+  const [footerHeight, setFooterHeight] = useState(0);
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    if (!footerRef.current) return;
+    const updateHeight = () => {
+      if (footerRef.current) {
+        setFooterHeight(footerRef.current.offsetHeight);
+      }
+    };
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateHeight();
+    });
+    resizeObserver.observe(footerRef.current);
+
+    window.addEventListener('resize', updateHeight);
+    if (document.fonts) {
+      document.fonts.ready.then(updateHeight);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, []);
+
   return (
-    <footer
+    <div
       id="contact"
-      className="relative pt-16 sm:pt-24 pb-8 px-6 sm:px-12 lg:px-20 bg-[#8EE929] text-black overflow-hidden select-none"
+      className="relative w-full [clip-path:polygon(0%_0,100%_0%,100%_100%,0%_100%)] z-0 pointer-events-auto"
+      style={{ height: footerHeight ? `${footerHeight}px` : 'auto' }}
     >
-      <div className="max-w-7xl mx-auto flex flex-col justify-between">
+      <div
+        ref={footerRef}
+        className="fixed bottom-0 left-0 w-full z-0 pointer-events-auto"
+      >
+        <footer
+          className="relative pt-16 sm:pt-24 pb-8 px-6 sm:px-12 lg:px-20 bg-[#8EE929] text-black overflow-hidden select-none"
+        >
+          <div className="max-w-7xl mx-auto flex flex-col justify-between">
         
         {/* Top Section: Heading + Buttons on Left, Social Profiles with Logos on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pb-12 sm:pb-16 border-b border-black/20">
@@ -406,6 +442,8 @@ export default function Footer() {
         </div>
 
       </div>
-    </footer>
+        </footer>
+      </div>
+    </div>
   );
 }
