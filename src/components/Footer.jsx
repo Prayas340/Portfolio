@@ -3,6 +3,26 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import { playCyberHover, playCyberClick } from '../utils/audio';
 
+// Official Brand SVGs
+const GitHubIcon = ({ className = "w-6 h-6" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+
+const LeetCodeIcon = ({ className = "w-6 h-6" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636a5.216 5.216 0 0 0-3.79-1.57c-1.42 0-2.84.542-3.924 1.626L3.99 12.37c-2.167 2.167-2.167 5.68 0 7.848l4.332 4.363c1.084 1.084 2.504 1.626 3.924 1.626s2.84-.542 3.924-1.626l2.609-2.636c.514-.514.496-1.365-.039-1.901-.535-.535-1.386-.553-1.9-.038z" />
+    <path d="M20.811 13.01H10.666c-.754 0-1.365.611-1.365 1.365s.611 1.365 1.365 1.365h10.145c.754 0 1.365-.611 1.365-1.365s-.611-1.365-1.365-1.365z" fill="#FFA116" />
+  </svg>
+);
+
+const LinkedInIcon = ({ className = "w-6 h-6" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.62 1.62 0 1 0 0 3.24 1.62 1.62 0 0 0 0-3.24z" />
+  </svg>
+);
+
 // Interactive Dot Matrix Canvas Banner for "PORTFOLIO/PRAYAS"
 function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
   const containerRef = useRef(null);
@@ -23,7 +43,6 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       const width = rect.width;
       if (width <= 0) return;
 
-      // Aspect ratio for the huge banner: height scales with width
       const height = Math.max(110, Math.min(260, width * 0.17));
 
       canvas.width = width * dpr;
@@ -34,13 +53,11 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       ctx.save();
       ctx.scale(dpr, dpr);
 
-      // Offscreen canvas for raster text sampling
       const off = document.createElement('canvas');
       const offCtx = off.getContext('2d');
       off.width = Math.floor(width);
       off.height = Math.floor(height);
 
-      // Measure font size to span ~98% of container width
       let fontSize = height * 0.92;
       offCtx.font = `900 ${fontSize}px 'Arial Black', Impact, 'Rajdhani', sans-serif`;
       offCtx.textAlign = 'center';
@@ -55,16 +72,13 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       offCtx.fillStyle = '#000000';
       offCtx.fillText(text, width / 2, height / 2 + fontSize * 0.04);
 
-      // Sample raster pixel data
       const imgData = offCtx.getImageData(0, 0, width, height);
       const data = imgData.data;
 
-      // Clear main canvas (background shows the lime green)
       ctx.clearRect(0, 0, width, height);
 
-      // Dot Matrix settings (grid steps)
       const dotStep = Math.max(4.5, Math.min(8.5, width / 175));
-      const dotSize = dotStep * 0.72; // Square pixel dots matching reference
+      const dotSize = dotStep * 0.72;
       const mouse = mousePosRef.current;
 
       for (let y = dotStep / 2; y < height; y += dotStep) {
@@ -72,18 +86,15 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
           const pixelIndex = (Math.floor(y) * width + Math.floor(x)) * 4;
           const alpha = data[pixelIndex + 3] || 0;
 
-          // Interactive magnetic wave with cursor
           const dist = Math.hypot(x - mouse.x, y - mouse.y);
           const isNear = dist < 80;
           const boost = isNear ? (1 - dist / 80) * 0.45 : 0;
 
           if (alpha > 75) {
-            // Lit text dot: Solid black square pixel
             ctx.fillStyle = '#080A08';
             const s = dotSize * (1 + boost * 0.25);
             ctx.fillRect(x - s / 2, y - s / 2, s, s);
           } else {
-            // Unlit background matrix dot: Faint translucent square pixel
             ctx.fillStyle = isNear ? `rgba(0, 0, 0, ${0.14 + boost * 0.2})` : 'rgba(0, 0, 0, 0.085)';
             const s = (dotSize * 0.5) * (1 + boost * 0.4);
             ctx.fillRect(x - s / 2, y - s / 2, s, s);
@@ -94,7 +105,6 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
       ctx.restore();
     };
 
-    // Render initially and on font load
     if (document.fonts) {
       document.fonts.ready.then(render);
     }
@@ -142,6 +152,33 @@ function DotMatrixBanner({ text = "PORTFOLIO/PRAYAS" }) {
 }
 
 export default function Footer() {
+  const socialProfiles = [
+    {
+      category: 'CODE & REPOSITORIES',
+      label: 'GITHUB',
+      handle: '@Prayas340',
+      url: 'https://github.com/Prayas340',
+      icon: <GitHubIcon className="w-6 h-6 sm:w-7 sm:h-7" />,
+      badgeBg: 'bg-black text-[#8EE929]',
+    },
+    {
+      category: 'ALGORITHMS & PRACTICE',
+      label: 'LEETCODE',
+      handle: '@Prayas_dey',
+      url: 'https://leetcode.com/u/Prayas_dey/',
+      icon: <LeetCodeIcon className="w-6 h-6 sm:w-7 sm:h-7" />,
+      badgeBg: 'bg-black text-[#FFA116]',
+    },
+    {
+      category: 'SOCIAL & NETWORK',
+      label: 'LINKEDIN',
+      handle: 'prayas-dey',
+      url: 'https://www.linkedin.com/in/prayas-dey/',
+      icon: <LinkedInIcon className="w-6 h-6 sm:w-7 sm:h-7" />,
+      badgeBg: 'bg-black text-[#0A66C2]',
+    },
+  ];
+
   return (
     <footer
       id="contact"
@@ -149,10 +186,10 @@ export default function Footer() {
     >
       <div className="max-w-7xl mx-auto flex flex-col justify-between">
         
-        {/* Top Section: Heading + Buttons on Left, Directory Grid on Right */}
+        {/* Top Section: Heading + Buttons on Left, Social Profiles with Logos on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pb-12 sm:pb-16 border-b border-black/20">
           
-          {/* Left Column: Stamp, Big Headline, Action Buttons */}
+          {/* Left Column: Stamp, Big Headline in Neoradical font, Action Buttons */}
           <div className="lg:col-span-6 flex flex-col items-start">
             
             {/* Spinning Stamp Emblem */}
@@ -211,130 +248,41 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right Column: Clean 3-Column Directory matching reference photo */}
-          <div className="lg:col-span-6 lg:border-l lg:border-black/20 lg:pl-10 xl:pl-16 pt-2">
-            <div className="grid grid-cols-3 gap-6 sm:gap-8 font-mono text-xs sm:text-sm">
-              
-              {/* Category Column */}
-              <div className="flex flex-col gap-4 text-black/55 font-mono text-xs uppercase tracking-widest font-bold">
-                <span>PORTFOLIO</span>
-                <span>CODE & DEV</span>
-                <span>PRACTICE</span>
-                <span>SOCIAL</span>
-                <span>DIRECT LINE</span>
-              </div>
+          {/* Right Column: Exclusively GitHub, LeetCode & LinkedIn with Brand Logos beside Titles */}
+          <div className="lg:col-span-6 lg:border-l lg:border-black/20 lg:pl-10 xl:pl-16 flex flex-col justify-center gap-7 sm:gap-9 pt-2">
+            {socialProfiles.map((item) => (
+              <div key={item.label} className="flex flex-col gap-1.5 group">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-black/60 font-bold">
+                  // {item.category}
+                </span>
 
-              {/* Primary Links Column */}
-              <div className="flex flex-col gap-4 font-mono font-bold text-black uppercase">
                 <a
-                  href="#projects"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>WORK</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://github.com/Prayas340"
+                  href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseEnter={playCyberHover}
                   onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
+                  className="inline-flex items-center gap-3.5 text-black hover:opacity-80 transition-all duration-200"
                 >
-                  <span>GITHUB</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://leetcode.com/u/Prayas_dey/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>LEETCODE</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/prayas-dey/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>LINKEDIN</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="mailto:deyprayas3@gmail.com"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>EMAIL</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
+                  {/* Brand Logo beside the title */}
+                  <span className={`shrink-0 p-2 sm:p-2.5 rounded-lg ${item.badgeBg} shadow-sm group-hover:scale-110 transition-transform duration-200`}>
+                    {item.icon}
+                  </span>
 
-              {/* Secondary Links Column */}
-              <div className="flex flex-col gap-4 font-mono font-bold text-black uppercase">
-                <a
-                  href="#experience"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>EXPERIENCE</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://github.com/Prayas340?tab=repositories"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>REPOSITORIES</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://leetcode.com/u/Prayas_dey/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>SOLUTIONS</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>TWITTER</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="tel:+918444807833"
-                  onMouseEnter={playCyberHover}
-                  onClick={playCyberClick}
-                  className="inline-flex items-center gap-1 hover:opacity-60 transition-opacity"
-                >
-                  <span>CALL DIRECT</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
+                  {/* Profile Title */}
+                  <span className="font-heading text-2xl sm:text-4xl font-black uppercase tracking-tight text-black group-hover:underline decoration-2 underline-offset-4">
+                    {item.label}
+                  </span>
 
-            </div>
+                  <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-black/60 group-hover:text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+
+                {/* Handle under the title */}
+                <span className="font-mono text-xs sm:text-sm text-black/70 pl-12 sm:pl-15 font-semibold">
+                  {item.handle}
+                </span>
+              </div>
+            ))}
           </div>
 
         </div>
